@@ -1,5 +1,6 @@
 /.git/
 /.idea/
+/__pycache__/
 /заметки_для_использования_гитхаб.txt
 *.png
 /confidentially.py
