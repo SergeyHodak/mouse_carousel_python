@@ -56,8 +56,30 @@ if __name__ == '__main__':  # запуск файла как основной ф
     print("приложение запущено и выведено на верх всех остальных окон")
 
     """Проверка выбранного языка на панеле задач"""
-    # a2 = 0  # флаг для зацикливания
-    # while a2 == 0:  # проверка что выбран английский язык
+    a2 = 0  # флаг для зацикливания
+    while a2 == 0:  # проверка что выбран английский язык
+        if pyautogui.locateCenterOnScreen('L_ENG.png'):  # если английский
+            a2 = 1  # выход с цикла
+            print("установлен английский язык ввода")
+        elif pyautogui.locateCenterOnScreen('L_UKR.png'):  # если украинский
+            print("был установлен украинский")
+            # эта вся шняга что в низу не работает такк как роскладка укр, так же и с рус, работает только когда англ!!
+            # pyautogui.keyDown("shift")  # зажать
+            # pyautogui.press("alt")  # кликнуть
+            # pyautogui.keyUp("shift")  # отпустить
+            # time.sleep(0.2)  # задержка 0.2 сек
+            # pyautogui.keyDown("shift")  # зажать
+            # pyautogui.press("alt")  # кликнуть
+            # pyautogui.keyUp("shift")  # отпустить
+            # time.sleep(1)  # задержка 1 сек
+        elif pyautogui.locateCenterOnScreen('L_RUS.png'):  # если русский
+            print("был установлен русский")
+            # pyautogui.keyDown("shift")  # зажать
+            # pyautogui.press("alt")  # кликнуть
+            # pyautogui.keyUp("shift")  # отпустить
+            # time.sleep(1)  # задержка 1 сек
+        else:
+            print("иконка выбранного языка не видна")
 
     """Первый ввод данных"""
     a3 = 0  # флаг для зацикливания
@@ -68,9 +90,11 @@ if __name__ == '__main__':  # запуск файла как основной ф
 
         if pyautogui.locateCenterOnScreen('E.png'):  # виджет
             x1, y1, x2, y2 = pyautogui.locateOnScreen('E.png', grayscale=False)  # получаем координаты фрагмента для клика
-
+            print(x1, y1)
             # ввод почты
-            option_1(random.randint(x1 + (388 - 100), x1 + (388 + 100)), random.randint(y1 + (306 - 10), y1 + (306 + 10)))  # x1=388 y1=306 (почта)
+            x_1 = random.randint(x1+288, x1+488)
+            y_1 = random.randint(y1+296, y1+316)
+            option_1(int(x_1), int(y_1))  # x1=388 y1=306 (почта)  #ПОЯВИЛАСЬ ОШИБКА ПО УСТАНОВКАМ КУРСОРА
             pyautogui.click()  # клик ЛКМ
             pyautogui.keyDown("ctrl")  # зажать
             pyautogui.press("a")  # кликнуть
@@ -91,6 +115,14 @@ if __name__ == '__main__':  # запуск файла как основной ф
 
             sys.exit(-1)  # прекратить выполнение скрипта
 # pyautogui.screenshot('E.png')  # эта команда сохраняет скриншот в файл с прописанным именем
+"""
+https://progi.pro/kak-vvesti-imya-polzovatelya-vo-vsplivayushem-okne-s-pomoshyu-python-11555977
+Также я попытался получить идентификатор элемента полей, используя XPath, и это тоже не сработало.
+
+Этот тип всплывающих окон не является обычным. это HTTP-аутентификация. Вы можете использовать пакет запросов для вставки данных:
+from requests.auth import HTTPBasicAuth
+requests.get('https://api.github.com/user', auth=HTTPBasicAuth('user', 'pass')) 
+"""
 
 
 
